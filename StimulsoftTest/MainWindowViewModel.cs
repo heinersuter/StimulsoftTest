@@ -1,12 +1,10 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Stimulsoft.Report;
+﻿using Stimulsoft.Report;
 
 namespace StimulsoftTest
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : ViewModel
     {
-        private string _value;
+        private string _textValue;
         private StiReport _report;
 
         public MainWindowViewModel()
@@ -14,42 +12,26 @@ namespace StimulsoftTest
             Report = new StiReport();
             Report.Load("Report.mrt");
 
-            Value = "Test";
+            TextValue = "Test";
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Value
+        public string TextValue
         {
-            get => _value;
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-                UpdateReport();
-            }
+            get => _textValue;
+            set => SetValue(ref _textValue, value, UpdateReport);
         }
 
         public StiReport Report
         {
             get => _report;
-            set
-            {
-                _report = value;
-                OnPropertyChanged();
-            }
+            set => SetValue(ref _report, value);
         }
 
         private void UpdateReport()
         {
-            Report.RegData("Data", new { Value });
+            Report.RegData("Data", new { Value = TextValue });
             Report.Dictionary.Synchronize();
             Report.Render(false);
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

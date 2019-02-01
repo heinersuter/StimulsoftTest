@@ -15,8 +15,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <HeaderedContentControl Grid.Column="0" Header="Value" Margin="8">
-            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+        <HeaderedContentControl Grid.Column="0" Header="Text Value" Margin="8">
+            <TextBox Text="{Binding TextValue, UpdateSourceTrigger=PropertyChanged}"/>
         </HeaderedContentControl>
 
         <wpfViewer:StiWpfViewerControl Grid.Column="1" Report="{Binding Report}" Margin="8"/>
